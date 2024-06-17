@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('company_name')->nullable();
             $table->string('tel_number');
             $table->string('email');
-            $table->string('content');
+            $table->text('content');
             $table->tinyInteger('status')->comment('0:未読, 1:既読')->default(0);
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
