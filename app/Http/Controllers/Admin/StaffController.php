@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreStaffRequest;
-use App\Http\Requests\UpdateStaffRequest;
+use App\Http\Requests\Staff\UpdateStaffRequest;
 use App\Http\Resources\Staff\StaffCollection;
 use App\Http\Resources\Staff\StaffResource;
 use Exception;
@@ -70,7 +70,7 @@ class StaffController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Staff $staff): JsonResponse
+    public function update(UpdateStaffRequest $request, Staff $staff): JsonResponse
     {
         $attributes = $request->only(['name', 'comment', 'role']);
 
