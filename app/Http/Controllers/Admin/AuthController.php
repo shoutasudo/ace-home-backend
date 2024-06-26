@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -27,20 +29,20 @@ class AuthController extends Controller
     }
 
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $attributes = $request->only(['email', 'password']);
+        if (Auth::attempt($attributes)) {
             $user = User::whereEmail($request->email)->first();
-            $user->tokens()->delete();
-            $token = $user->createToken("login:user{$user->id}")->plainTextToken;
 
-            $cookie = cookie('token', $token, 60 * 24);
+            $token = $user->createToken("login:user{$user->id}")->plainTextToken;
 
             return response()->json([
                 'user' => new UserResource($user),
-            ])->withCookie($cookie);
+                'access_token' => $token
+            ]);
         }
-        return response()->json('Can Not Login.', Response::HTTP_INTERNAL_SERVER_ERROR);
+        return response()->json('認証情報が誤っています', Response::HTTP_UNAUTHORIZED);
     }
 
     public function logout(Request $request) {
