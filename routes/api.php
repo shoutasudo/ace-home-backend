@@ -37,7 +37,7 @@ Route::prefix('/information')->group(function () {
 
 
 Route::post('/contact', [ContactController::class, 'store']);
-Route::prefix('/admin')->group(function () {
+Route::middleware('auth:sanctum')->prefix('/admin')->group(function () {
     Route::prefix('/information')->group(function () {
         Route::get('/list', [AdminInformationController::class, 'list']);
         Route::get('/store/uuid',[AdminInformationController::class,'createUuid']);
