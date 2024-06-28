@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\InformationController as AdminInformationController;
 use App\Http\Controllers\InformationController;
@@ -54,6 +55,12 @@ Route::middleware('auth:sanctum')->prefix('/admin')->group(function () {
         Route::post('/store', [StaffController::class, 'store'])->name('admin.staff.store');
         Route::post('/update/{staff}', [StaffController::class, 'update'])->name('admin.staff.update');
         Route::post('/delete', [StaffController::class, 'destroy'])->name('admin.staff.destroy');
+    });
+    Route::prefix('/contact')->group(function() {
+        Route::get('/list', [AdminContactController::class, 'list']);
+        Route::get('/detail/{id}', [AdminContactController::class, 'detail']);
+        Route::delete('/delete/{id}', [AdminContactController::class, 'delete']);
+        Route::post('/unread', [AdminContactController::class, 'unread']);
     });
 });
 Route::get('staff/index', GetStaff::class)->name('staff.index');
