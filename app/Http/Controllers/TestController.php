@@ -11,6 +11,6 @@ class TestController extends Controller
         return response()->json([
             'test' => 'hogehogehoge',
             'test2' => 'hogehogehoge'
-        ]);
+            ]);
     }
 }

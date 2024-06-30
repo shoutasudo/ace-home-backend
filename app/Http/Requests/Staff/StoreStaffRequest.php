@@ -24,7 +24,7 @@ class StoreStaffRequest extends FormRequest
         return [
             'name' => 'required|string|max:32',
             'comment' => 'required|string|max:20',
-            'role' => 'required|string|max:10',
+            'role' => 'required|string|max:20',
             'image' => 'nullable|image',
         ];
     }
@@ -42,7 +42,7 @@ class StoreStaffRequest extends FormRequest
 
             'role.required' => '役割は必須項目です。',
             'role.string' => '役割は文字列でなければなりません。',
-            'role.max' => '役割は10文字以内で入力してください。',
+            'role.max' => '役割は20文字以内で入力してください。',
 
             'image.image' => '画像ファイルを選択してください。',
         ];
